@@ -1,0 +1,192 @@
+/* ============================================
+   开源个人博客系统 - 自定义样式
+   包含：相关推荐、搜索高亮、阅读进度条、返回顶部
+   ============================================ */
+
+/* --- 相关推荐区域样式 --- */
+.oss-related-section {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 2px solid var(--color-lightgrey, #f0f0f0);
+}
+
+.oss-related-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.oss-related-icon {
+    font-size: 1.75rem;
+}
+
+.oss-related-tag {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-secondary-text, #666);
+    background: var(--color-lightgrey, #f5f5f5);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+}
+
+.oss-related-feed {
+    gap: 1.5rem;
+}
+
+/* --- 搜索高亮样式 --- */
+.oss-search-highlight {
+    background: linear-gradient(120deg, #ffe066 0%, #ffd43b 100%);
+    color: #212529;
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* --- 阅读进度条 --- */
+.oss-reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #5f3dc4, #845ef7, #b197fc);
+    z-index: 9999;
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px rgba(132, 94, 247, 0.5);
+}
+
+/* --- 返回顶部按钮 --- */
+.oss-back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #5f3dc4, #845ef7);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 15px rgba(95, 61, 196, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 9998;
+}
+
+.oss-back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.oss-back-to-top:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(95, 61, 196, 0.5);
+}
+
+/* --- 文章卡片增强样式 --- */
+.gh-feed .gh-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.gh-feed .gh-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.gh-feed .gh-card img {
+    transition: transform 0.5s ease;
+}
+
+.gh-feed .gh-card:hover img {
+    transform: scale(1.05);
+}
+
+/* --- 文章详情页内容增强 --- */
+.gh-content {
+    line-height: 1.8;
+}
+
+.gh-content p {
+    margin-bottom: 1.5em;
+}
+
+.gh-content h2,
+.gh-content h3 {
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+}
+
+/* --- 标签样式增强 --- */
+.gh-article-header a.gh-article-tag {
+    display: inline-block !important;
+    background: linear-gradient(135deg, #5f3dc4, #845ef7) !important;
+    color: white !important;
+    padding: 0.3rem 0.9rem !important;
+    border-radius: 999px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: opacity 0.2s !important;
+    line-height: 1.4 !important;
+}
+
+.gh-article-header a.gh-article-tag:hover {
+    opacity: 0.9 !important;
+    color: white !important;
+}
+
+/* --- 响应式调整 --- */
+@media (max-width: 768px) {
+    .oss-related-title {
+        font-size: 1.25rem;
+        flex-wrap: wrap;
+    }
+
+    .oss-back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 42px;
+        height: 42px;
+    }
+
+    .oss-related-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+    }
+}
+
+/* --- 无结果提示样式 --- */
+.oss-no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--color-secondary-text, #666);
+}
+
+.oss-no-results-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.oss-no-results-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-text, #333);
+}
+
+.oss-no-results-suggestion {
+    font-size: 0.95rem;
+}

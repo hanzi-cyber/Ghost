@@ -222,3 +222,6 @@ yalc.lock
 .github/instructions/nx.instructions.md
 
 .nx/migrate-runs
+
+# 实验：Ghost 本地运行实例（不提交运行数据）
+/runtime/
