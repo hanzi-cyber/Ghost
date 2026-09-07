@@ -119,7 +119,7 @@
         if (!keyword) return;
 
         // 检查是否有搜索结果
-        var results = document.querySelectorAll('.gh-feed .post-card, .search-results .post-card');
+        var results = document.querySelectorAll('.gh-feed .gh-card, .search-results .gh-card');
         if (results.length === 0) {
             var feed = document.querySelector('.gh-feed') || document.querySelector('.search-results');
             if (feed) {
@@ -136,7 +136,7 @@
 
     /* ===== 5. 文章卡片阅读时长显示 ===== */
     function enhancePostCards() {
-        var cards = document.querySelectorAll('.post-card');
+        var cards = document.querySelectorAll('.gh-card');
         cards.forEach(function (card) {
             // 可以在这里添加卡片增强功能
             // 例如：添加阅读时长标签、收藏按钮等

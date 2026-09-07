@@ -95,22 +95,22 @@
 }
 
 /* --- 文章卡片增强样式 --- */
-.gh-feed .post-card {
+.gh-feed .gh-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 12px;
     overflow: hidden;
 }
 
-.gh-feed .post-card:hover {
+.gh-feed .gh-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 30px rgba(0,0,0,0.12);
 }
 
-.gh-feed .post-card img {
+.gh-feed .gh-card img {
     transition: transform 0.5s ease;
 }
 
-.gh-feed .post-card:hover img {
+.gh-feed .gh-card:hover img {
     transform: scale(1.05);
 }
 
@@ -130,21 +130,22 @@
 }
 
 /* --- 标签样式增强 --- */
-.gh-article-tag {
-    display: inline-block;
-    background: linear-gradient(135deg, #5f3dc4, #845ef7);
-    color: white;
-    padding: 0.3rem 0.9rem;
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: opacity 0.2s;
+.gh-article-header a.gh-article-tag {
+    display: inline-block !important;
+    background: linear-gradient(135deg, #5f3dc4, #845ef7) !important;
+    color: white !important;
+    padding: 0.3rem 0.9rem !important;
+    border-radius: 999px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: opacity 0.2s !important;
+    line-height: 1.4 !important;
 }
 
-.gh-article-tag:hover {
-    opacity: 0.9;
-    color: white;
+.gh-article-header a.gh-article-tag:hover {
+    opacity: 0.9 !important;
+    color: white !important;
 }
 
 /* --- 响应式调整 --- */

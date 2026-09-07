@@ -65,45 +65,46 @@
 
 </main>
 
-{{/post}}
-
-{{#if @custom.show_related_articles}}
-    {{!-- 自主扩展功能：按标签智能匹配相关文章，提升内容发现能力 --}}
-    {{#get "posts" include="authors,tags" filter="tags:[{{post.primary_tag.slug}}]+id:-{{post.id}}" limit="3" as |related_by_tag|}}
-        {{#if related_by_tag}}
-            <section class="gh-container is-grid gh-outer oss-related-section">
-                <div class="gh-container-inner gh-inner">
-                    <h2 class="gh-container-title oss-related-title">
-                        <span class="oss-related-icon">📚</span>
-                        相关推荐
-                        <span class="oss-related-tag">来自「{{post.primary_tag.name}}」</span>
-                    </h2>
-                    <div class="gh-feed oss-related-feed">
-                        {{#foreach related_by_tag}}
-                            {{> "post-card" lazyLoad=true}}
-                        {{/foreach}}
-                    </div>
-                </div>
-            </section>
-        {{else}}
-            {{!-- 如果同标签文章不足，回退到最新文章 --}}
-            {{#get "posts" include="authors" filter="id:-{{post.id}}" limit="3" as |latest|}}
-                {{#if latest}}
-                    <section class="gh-container is-grid gh-outer oss-related-section">
-                        <div class="gh-container-inner gh-inner">
-                            <h2 class="gh-container-title oss-related-title">
-                                <span class="oss-related-icon">📖</span>
-                                最新文章
-                            </h2>
-                            <div class="gh-feed oss-related-feed">
-                                {{#foreach latest}}
-                                    {{> "post-card" lazyLoad=true}}
-                                {{/foreach}}
-                            </div>
+    {{#if @custom.show_related_articles}}
+        {{!-- 自主扩展功能：按标签智能匹配相关文章，提升内容发现能力 --}}
+        {{#get "posts" include="authors,tags" filter="tags:[{{primary_tag.slug}}]+id:-{{id}}" limit="3" as |related_by_tag|}}
+            {{#if related_by_tag}}
+                <section class="gh-container is-grid gh-outer oss-related-section">
+                    <div class="gh-container-inner gh-inner">
+                        <h2 class="gh-container-title oss-related-title">
+                            <span class="oss-related-icon">📚</span>
+                            相关推荐
+                            {{#if primary_tag}}
+                                <span class="oss-related-tag">来自「{{primary_tag.name}}」</span>
+                            {{/if}}
+                        </h2>
+                        <div class="gh-feed oss-related-feed">
+                            {{#foreach related_by_tag}}
+                                {{> "post-card" lazyLoad=true}}
+                            {{/foreach}}
                         </div>
-                    </section>
-                {{/if}}
-            {{/get}}
-        {{/if}}
-    {{/get}}
-{{/if}}
+                    </div>
+                </section>
+            {{else}}
+                {{!-- 降级方案：同标签文章不足时显示最新文章 --}}
+                {{#get "posts" include="authors" filter="id:-{{id}}" limit="3" as |latest_posts|}}
+                    {{#if latest_posts}}
+                        <section class="gh-container is-grid gh-outer oss-related-section">
+                            <div class="gh-container-inner gh-inner">
+                                <h2 class="gh-container-title oss-related-title">
+                                    <span class="oss-related-icon">📖</span>
+                                    最新文章
+                                </h2>
+                                <div class="gh-feed oss-related-feed">
+                                    {{#foreach latest_posts}}
+                                        {{> "post-card" lazyLoad=true}}
+                                    {{/foreach}}
+                                </div>
+                            </div>
+                        </section>
+                    {{/if}}
+                {{/get}}
+            {{/if}}
+        {{/get}}
+    {{/if}}
+{{/post}}
