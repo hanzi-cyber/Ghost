@@ -66,29 +66,55 @@
 </main>
 
     {{#if @custom.show_related_articles}}
-        {{!-- 自主扩展功能：按标签智能匹配相关文章，提升内容发现能力 --}}
-        {{#get "posts" include="authors,tags" filter="tags:[{{primary_tag.slug}}]+id:-{{id}}" limit="3" as |related_by_tag|}}
-            {{#if related_by_tag}}
-                <section class="gh-container is-grid gh-outer oss-related-section">
-                    <div class="gh-container-inner gh-inner">
-                        <h2 class="gh-container-title oss-related-title">
-                            <span class="oss-related-icon">📚</span>
-                            相关推荐
-                            {{#if primary_tag}}
-                                <span class="oss-related-tag">来自「{{primary_tag.name}}」</span>
+        {{!-- 自主扩展功能：按标签智能匹配相关文章，无标签时降级显示最新文章 --}}
+        {{#if primary_tag}}
+            {{!-- 有主标签：查询同标签文章 --}}
+            {{#get "posts" include="authors,tags" filter="tags:[{{primary_tag.slug}}]+id:-{{id}}" limit="3" as |related_by_tag|}}
+                {{#foreach related_by_tag}}
+                    {{#if @first}}
+                        <section class="gh-container is-grid gh-outer oss-related-section">
+                            <div class="gh-container-inner gh-inner">
+                                <h2 class="gh-container-title oss-related-title">
+                                    <span class="oss-related-icon">📚</span>
+                                    相关推荐
+                                    <span class="oss-related-tag">来自「{{primary_tag.name}}」</span>
+                                </h2>
+                                <div class="gh-feed oss-related-feed">
+                    {{/if}}
+                                    {{> "post-card" lazyLoad=true}}
+                    {{#if @last}}
+                                </div>
+                            </div>
+                        </section>
+                    {{/if}}
+                {{else}}
+                    {{!-- 同标签文章不足：降级显示最新文章 --}}
+                    {{#get "posts" include="authors" filter="id:-{{id}}" limit="3" as |latest_posts|}}
+                        {{#foreach latest_posts}}
+                            {{#if @first}}
+                                <section class="gh-container is-grid gh-outer oss-related-section">
+                                    <div class="gh-container-inner gh-inner">
+                                        <h2 class="gh-container-title oss-related-title">
+                                            <span class="oss-related-icon">📖</span>
+                                            最新文章
+                                        </h2>
+                                        <div class="gh-feed oss-related-feed">
                             {{/if}}
-                        </h2>
-                        <div class="gh-feed oss-related-feed">
-                            {{#foreach related_by_tag}}
-                                {{> "post-card" lazyLoad=true}}
-                            {{/foreach}}
-                        </div>
-                    </div>
-                </section>
-            {{else}}
-                {{!-- 降级方案：同标签文章不足时显示最新文章 --}}
-                {{#get "posts" include="authors" filter="id:-{{id}}" limit="3" as |latest_posts|}}
-                    {{#if latest_posts}}
+                                            {{> "post-card" lazyLoad=true}}
+                            {{#if @last}}
+                                        </div>
+                                    </div>
+                                </section>
+                            {{/if}}
+                        {{/foreach}}
+                    {{/get}}
+                {{/foreach}}
+            {{/get}}
+        {{else}}
+            {{!-- 无主标签：直接显示最新文章 --}}
+            {{#get "posts" include="authors" filter="id:-{{id}}" limit="3" as |latest_posts|}}
+                {{#foreach latest_posts}}
+                    {{#if @first}}
                         <section class="gh-container is-grid gh-outer oss-related-section">
                             <div class="gh-container-inner gh-inner">
                                 <h2 class="gh-container-title oss-related-title">
@@ -96,15 +122,15 @@
                                     最新文章
                                 </h2>
                                 <div class="gh-feed oss-related-feed">
-                                    {{#foreach latest_posts}}
-                                        {{> "post-card" lazyLoad=true}}
-                                    {{/foreach}}
+                    {{/if}}
+                                    {{> "post-card" lazyLoad=true}}
+                    {{#if @last}}
                                 </div>
                             </div>
                         </section>
                     {{/if}}
-                {{/get}}
-            {{/if}}
-        {{/get}}
+                {{/foreach}}
+            {{/get}}
+        {{/if}}
     {{/if}}
 {{/post}}
